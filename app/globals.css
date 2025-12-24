@@ -25,6 +25,12 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+/* Force white page background and high-contrast text */
+body {
+  background: #ffffff !important;
+  color: #111111 !important;
+}
+
 /* Medium-like article styling */
 .post-article {
   max-width: 760px;
@@ -88,3 +94,28 @@ body {
   .post-article pre { background: #091015; color: #d7e6ef; }
   .post-article figcaption { color: #9aa0a6; }
 }
+
+/* High-contrast light-theme overrides for blog content
+   Ensures blog pages stay light and readable regardless of OS dark mode */
+.bg-white .post-article,
+.bg-white .post-article h1,
+.bg-white .post-article h2,
+.bg-white .post-article h3,
+.bg-white .post-article p,
+.bg-white .post-article li,
+.bg-white .post-article figcaption {
+  color: #111 !important;
+}
+
+.bg-white .post-article a { color: #0366d6 !important; }
+.bg-white .post-article a:hover { text-decoration: underline; }
+
+.bg-white .post-article blockquote {
+  border-left-color: rgba(0,0,0,0.12) !important;
+  color: #333 !important;
+}
+
+.bg-white .post-article pre { background: #0f1724 !important; color: #e6edf3 !important; }
+
+
+

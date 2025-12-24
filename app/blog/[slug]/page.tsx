@@ -28,11 +28,13 @@ export default async function PostPage({ params }: Props) {
     const title = parsed.data.title || slug;
     const pubDate = parsed.data.pubDate || null;
     return (
-      <article className="post-article">
-        <h1>{title}</h1>
-        <div style={{ color: '#666', marginBottom: 18 }}>{pubDate}</div>
-        <div dangerouslySetInnerHTML={{ __html: html }} />
-      </article>
+      <div className="bg-white text-gray-900">
+        <article className="post-article">
+          <h1>{title}</h1>
+          <div className="text-gray-500 mb-4">{pubDate}</div>
+          <div dangerouslySetInnerHTML={{ __html: html }} />
+        </article>
+      </div>
     );
   }
 
@@ -40,11 +42,13 @@ export default async function PostPage({ params }: Props) {
     const raw = fs.readFileSync(jsonPath, 'utf8');
     const post = JSON.parse(raw);
     return (
-      <article className="post-article">
-        <h1>{post.title}</h1>
-        <div style={{ color: '#666', marginBottom: 18 }}>{post.pubDate}</div>
-        <div dangerouslySetInnerHTML={{ __html: post.content }} />
-      </article>
+      <div className="bg-white text-gray-900">
+        <article className="post-article">
+          <h1>{post.title}</h1>
+          <div className="text-gray-500 mb-4">{post.pubDate}</div>
+          <div dangerouslySetInnerHTML={{ __html: post.content }} />
+        </article>
+      </div>
     );
   }
 

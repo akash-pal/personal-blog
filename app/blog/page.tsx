@@ -35,18 +35,20 @@ export default function BlogPage() {
     });
 
   return (
-    <main style={{ padding: 24 }}>
-      <h1>Blog</h1>
-      <ul>
-        {posts.map((post: any) => (
-          <li key={post.slug} style={{ marginBottom: 12 }}>
-            <Link href={`/blog/${post.slug}`} style={{ fontSize: 18 }}>
-              {post.title}
-            </Link>
-            <div style={{ color: '#666', fontSize: 13 }}>{post.pubDate}</div>
-          </li>
-        ))}
-      </ul>
-    </main>
+    <div className="bg-white text-gray-900">
+      <main className="max-w-3xl mx-auto px-6 py-8">
+        <h1 className="text-2xl font-semibold mb-4">Blog</h1>
+        <ul>
+          {posts.map((post: any) => (
+            <li key={post.slug} className="mb-3">
+              <Link href={`/blog/${post.slug}`} className="text-lg font-medium text-gray-900 hover:underline">
+                {post.title}
+              </Link>
+              <div className="text-gray-500 text-sm">{post.pubDate}</div>
+            </li>
+          ))}
+        </ul>
+      </main>
+    </div>
   );
 }
