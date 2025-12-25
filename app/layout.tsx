@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Insights",
+  title: "Akash Pal",
   description: "A collection of blog posts",
 };
 
@@ -32,7 +32,7 @@ export default function RootLayout({
           <header className="border-b border-gray-200 bg-white">
             <div className="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
               <Link href="/" className="text-lg font-semibold text-gray-900">
-                Insights
+                Akash Pal
               </Link>
               <nav className="flex items-center">
                 <Link href="/blog" className="text-gray-700 hover:text-gray-900 ml-6">Blog</Link>
@@ -44,7 +44,7 @@ export default function RootLayout({
           <main className="max-w-5xl mx-auto px-6 py-8 flex-1">{children}</main>
 
           <footer className="border-t border-gray-100 mt-12 py-6 text-sm text-gray-500">
-            <div className="max-w-5xl mx-auto px-6">© {new Date().getFullYear()} Insights</div>
+            <div className="max-w-5xl mx-auto px-6">© {new Date().getFullYear()} Akash Pal</div>
           </footer>
         </div>
       </body>
