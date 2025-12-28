@@ -4,16 +4,17 @@ metadata:
   name: personal-blog-updater
   namespace: argocd
 spec:
-  writeBackConfig:
-        method: "git"
   namespace: argocd
+  commonUpdateSettings:
+    updateStrategy: newest-build
+    allowTags: "regexp:^[a-f0-9]{40}$"
   applicationRefs:
   - namePattern: personal-blog
     images:
     - alias: personal-blog
       imageName: ghcr.io/akash-pal/personal-blog
-      commonUpdateSettings:
-        updateStrategy: "newest-build"
-        allowTags: "regexp:^[a-f0-9]{40}$"
-        ignoreTags: ["latest"]
-     
+  writeBackConfig:
+    method: "git"
+    gitConfig:
+      repository: https://github.com/akash-pal/personal-blog
+      branch: "main"
