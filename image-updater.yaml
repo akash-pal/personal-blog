@@ -1,0 +1,16 @@
+apiVersion: argocd-image-updater.argoproj.io/v1alpha1
+kind: ImageUpdater
+metadata:
+  name: personal-blog-updater
+  namespace: argocd
+spec:
+  applications:
+    - namePattern: personal-blog
+  images:
+    - name: ghcr.io/akash-pal/personal-blog
+      updateStrategy: newest-build
+      allowTags:
+        - pattern: "^[a-f0-9]{40}$"
+  writeBackConfig:
+    method: git
+    commitMessage: "chore: automatic image update to {{.NewTag}}"

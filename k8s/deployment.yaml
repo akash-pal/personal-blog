@@ -19,7 +19,7 @@ spec:
         - name: ghcr-secret
       containers:
         - name: personal-blog
-          image: ghcr.io/akash-pal/personal-blog:c7e065f80d1cab44fc3a86492c50a16deb0471dd
+          image: ghcr.io/akash-pal/personal-blog:latest
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
