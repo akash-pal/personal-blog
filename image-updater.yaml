@@ -4,17 +4,29 @@ metadata:
   name: personal-blog-updater
   namespace: argocd
 spec:
+  # Namespace where ArgoCD Applications are located
   namespace: argocd
+
+  # Global update settings (can be overridden per-application or per-image)
   commonUpdateSettings:
     updateStrategy: newest-build
-    allowTags: "regexp:^[a-f0-9]{40}$"
-  applicationRefs:
-  - namePattern: personal-blog
-    images:
-    - alias: personal-blog
-      imageName: ghcr.io/akash-pal/personal-blog
+    # Allow tags matching git SHA (7-40 hex chars) - adjust if your CI uses different tags
+    allowTags: "^[a-f0-9]{7,40}$"
+
+  # Git write-back configuration
   writeBackConfig:
-    method: "git"
+    method: git
     gitConfig:
       repository: https://github.com/akash-pal/personal-blog
-      branch: "main"
+      branch: main
+      writeBackTarget: kustomization
+
+  # Applications to manage
+  applicationRefs:
+    - namePattern: personal-blog
+      images:
+        - alias: blog
+          imageName: ghcr.io/akash-pal/personal-blog
+          manifestTarget:
+            kustomize:
+              name: ghcr.io/akash-pal/personal-blog

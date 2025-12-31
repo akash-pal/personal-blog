@@ -5,3 +5,7 @@ resources:
   - deployment.yaml
   - service.yaml
   - ingress.yaml
+
+images:
+  - name: ghcr.io/akash-pal/personal-blog
+    newTag: latest
