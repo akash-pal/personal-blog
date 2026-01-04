@@ -29,6 +29,16 @@ else
     kind create cluster --config k8s/kind-config.yaml
 fi
 
+# Install NGINX Ingress Controller
+echo -e "${BLUE}Installing NGINX Ingress Controller...${NC}"
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/deploy.yaml
+
+echo -e "${BLUE}Waiting for NGINX Ingress Controller to be ready...${NC}"
+kubectl wait --namespace ingress-nginx \
+  --for=condition=ready pod \
+  --selector=app.kubernetes.io/component=controller \
+  --timeout=300s
+
 # Install Argo CD
 echo -e "${BLUE}Installing Argo CD...${NC}"
 kubectl create namespace argocd --dry-run=client -o yaml | kubectl apply -f -
@@ -84,9 +94,25 @@ kubectl apply -f image-updater.yaml
 echo -e "${BLUE}Creating application namespace 'blog-frontend'...${NC}"
 kubectl create namespace blog-frontend --dry-run=client -o yaml | kubectl apply -f -
 
+if [ -n "$GITHUB_USER" ] && [ -n "$GITHUB_TOKEN" ]; then
+    echo -e "${BLUE}Creating 'ghcr-secret' in 'blog-frontend' namespace...${NC}"
+    kubectl create secret docker-registry ghcr-secret \
+      --namespace=blog-frontend \
+      --docker-server=ghcr.io \
+      --docker-username="$GITHUB_USER" \
+      --docker-password="$GITHUB_TOKEN" \
+      --dry-run=client -o yaml | kubectl apply -f -
+else
+     echo -e "${RED}Skipping 'ghcr-secret' creation in 'blog-frontend'. App deployment might fail.${NC}"
+fi
+
 # Apply Application
 echo -e "${BLUE}Deploying 'personal-blog' application...${NC}"
 kubectl apply -f application.yaml
+
+# Apply Ingress
+echo -e "${BLUE}Applying Ingress for personal-blog...${NC}"
+kubectl apply -f k8s/ingress.yaml
 
 echo -e "${GREEN}Setup complete!${NC}"
 echo -e "${BLUE}To get the initial admin password:${NC}"
