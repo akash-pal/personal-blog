@@ -34,6 +34,7 @@ echo -e "${BLUE}Installing NGINX Ingress Controller...${NC}"
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/deploy.yaml
 
 echo -e "${BLUE}Waiting for NGINX Ingress Controller to be ready...${NC}"
+sleep 15 # Wait for resources to be created
 kubectl wait --namespace ingress-nginx \
   --for=condition=ready pod \
   --selector=app.kubernetes.io/component=controller \
