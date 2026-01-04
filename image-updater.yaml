@@ -27,6 +27,6 @@ spec:
       images:
         - alias: blog
           imageName: ghcr.io/akash-pal/personal-blog
-          manifestTarget:
+          manifestTargets:
             kustomize:
               name: ghcr.io/akash-pal/personal-blog
